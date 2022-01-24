@@ -11,7 +11,11 @@ pipeline {
 			url: "https://github.com/ag-cloudtechner/java-tomcat-maven-example.git"    
 	    }
 	}	
-	    
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }		    
         stage('Package') {
             steps {
                 sh 'mvn package'
