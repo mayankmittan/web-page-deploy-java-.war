@@ -11,7 +11,7 @@ pipeline {
 			url: "https://github.com/ag-cloudtechner/java-tomcat-maven-example.git"    
 	    }
 	}	
-        stage('Build') {
+        stage('Building') {
             steps {
                 sh 'mvn clean install'
             }
@@ -21,7 +21,7 @@ pipeline {
                 sh 'mvn package'
             }
         }	    
-        stage('Testing') {
+        stage('Sonar Testing') {
             steps {
 
                 withSonarQubeEnv('sonar1') {
