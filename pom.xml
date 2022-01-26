@@ -37,7 +37,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
  </dependencies>
  
  <build>
-  <finalName>SampleWebApplication</finalName>
+  <finalName>${buildNumber}</finalName>
   <plugins>
    <plugin>
     <groupId>org.apache.maven.plugins</groupId>
