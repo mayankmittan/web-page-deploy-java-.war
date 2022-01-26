@@ -23,11 +23,9 @@ pipeline {
         }	    
         stage('Testing') {
             steps {
-	     script{
-                scannerHome = tool 'Mysonar'
-	     }
+
                 withSonarQubeEnv('sonar1') {
-                    sh "${scannerHome}/bin/sonar-scanner"
+                    sh "mvn sonar:sonar"
                 }
             }
         }
