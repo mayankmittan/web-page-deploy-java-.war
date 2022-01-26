@@ -23,7 +23,10 @@ pipeline {
         }	    
         stage('Testing') {
             steps {
-                sh 'mvn test'
+                def scannerHome = tool 'Mysonar'
+                withSonarQubeEnv('sonar1') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
             }
         }
 
