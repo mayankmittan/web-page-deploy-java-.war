@@ -29,10 +29,10 @@ pipeline {
                 }
             }
         timeout(time: 30, unit: 'SECONDS')
-	                if ("${json.projectStatus.status}" == "ERROR") {
-                            currentBuild.result = 'FAILURE'
-                            error('Pipeline aborted due to quality gate failure.')
-                    }    
+    def qualitygate = waitForQualityGate()
+    if (qualitygate.status != "OK") {
+        error "Pipeline aborted due to quality gate coverage failure."
+    }
 	}   
 
 	stage('Deploy') {
