@@ -25,18 +25,13 @@ pipeline {
                 }
             }
 	}   
-         stage('Quality Gate'){
-		 steps{
-            timeout(time: 30, unit: ‘SECONDS’) {
-              def qg= waitForQualityGate()
-            if (qg.status!= ‘OK’){
-                error “Pipeline aborted due to quality gate failure: ${qg.status}”
+         stage('Quality Gate') {
+            steps {
+              timeout(time: 1, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+              }
             }
-        }         
-              echo ‘Quality Gate Passed’
-
-    }
-	 }
+          }
 	    stage('Package') {
             steps {
                 sh 'mvn package'
