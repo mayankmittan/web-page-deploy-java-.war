@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>My App</h3>
+<h2>My App</h2
 </body>
 </html>
