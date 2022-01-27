@@ -16,11 +16,7 @@ pipeline {
                 sh 'mvn clean install'
             }
         }		    
-        stage('Package') {
-            steps {
-                sh 'mvn package'
-            }
-        }	    
+	    
         stage('Sonar Testing') {
             steps {
 
@@ -40,7 +36,12 @@ pipeline {
               echo ‘Quality Gate Passed’
 
     }
-	 }	 
+	 }
+	    stage('Package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
 	stage('Deploy') {
             steps {
 		    sh 'cp /root/.jenkins/workspace/pipeline/target/*.war /opt/apache-tomcat-9.0.58/webapps/'
