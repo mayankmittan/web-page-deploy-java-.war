@@ -28,13 +28,19 @@ pipeline {
                     sh "mvn sonar:sonar"
                 }
             }
-        timeout(time: 30, unit: 'SECONDS')
-    def qualitygate = waitForQualityGate()
-    if (qualitygate.status != "OK") {
-        error "Pipeline aborted due to quality gate coverage failure."
-    }
 	}   
+         stage(“Quality Gate”){
+		 steps{
+            timeout(time: 30, unit: ‘SECONDS’) {
+              def qg= waitForQualityGate()
+            if (qg.status!= ‘OK’){
+                error “Pipeline aborted due to quality gate failure: ${qg.status}”
+            }
+        }         
+              echo ‘Quality Gate Passed’
 
+    }
+	 }	 
 	stage('Deploy') {
             steps {
 		    sh 'cp /root/.jenkins/workspace/pipeline/target/*.war /opt/apache-tomcat-9.0.58/webapps/'
