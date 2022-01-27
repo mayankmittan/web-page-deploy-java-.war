@@ -28,15 +28,12 @@ pipeline {
                     sh "mvn sonar:sonar"
                 }
             }
-        }
-	    
- 	stage("Quality Gate") {
-            steps {
-              timeout(time: 3, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
-              }
-            }
-          }    
+        timeout(time: 30, unit: 'SECONDS')
+	                if ("${json.projectStatus.status}" == "ERROR") {
+                            currentBuild.result = 'FAILURE'
+                            error('Pipeline aborted due to quality gate failure.')
+                    }    
+	}   
 
 	stage('Deploy') {
             steps {
