@@ -37,25 +37,20 @@ sh 'echo compile completed'
 }
 
 }
-  stage('Sonar Analysis') {
-environment {
-SCANNER_HOME = tool 'my_sonar'
-PROJECT_NAME = "my_sonar"
-  mvn sonar:sonar \
-  -Dsonar.projectKey=my_sonar \
- 
-  -Dsonar.login=ebf5abda01c49688c5ae0c981f7085a09b850360
-}
+
+stage('SonarQube analysis') { 
+  steps { 
+    script{ def scannerHome = tool 'my_sonar'; 
+           withSonarQubeEnv('my_sonar') {
+             sh "${tool("my_sonar")}/bin/sonar-scanner \ 
+             -Dsonar.projectKey=my_sonar \ 
+             -Dsonar.projectName=my_sonar"
+           }
+          }
   }
-steps {
-withSonarQubeEnv('crediantialsId: 'my_sonar', installationName: 'my_sonar') {
-sh '/root/opt/sonarscanner' \
-                  -Dsonar.host.url=http://18.222.117.40:9000 \
--Dsonar.java.binaries=build/classes/java/ \
--Dsonar.sources=.'''
-}
-}
-}
+
+
+
 stage('Quality Gate') {
 steps {
 timeout(time: 1, unit: 'MINUTES') {
