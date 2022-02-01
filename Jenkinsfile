@@ -48,7 +48,7 @@ PROJECT_NAME = "my_sonar"
 }
   }
 steps {
-withSonarQubeEnv('crediantialsId: 'jenkins-mm', installationName: 'my_sonar') {
+withSonarQubeEnv('crediantialsId: 'my_sonar', installationName: 'my_sonar') {
 sh '/root/opt/sonarscanner' \
                   -Dsonar.host.url=http://18.222.117.40:9000 \
 -Dsonar.java.binaries=build/classes/java/ \
