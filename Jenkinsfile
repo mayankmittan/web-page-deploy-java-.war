@@ -40,7 +40,7 @@ sh 'echo compile completed'
   stage('Sonar Analysis') {
 environment {
 SCANNER_HOME = tool 'my_sonar'
-PROJECT_NAME = "test"
+PROJECT_NAME = "my_sonar"
   mvn sonar:sonar \
   -Dsonar.projectKey=my_sonar \
   -Dsonar.host.url=http://18.222.117.40:9000 \
