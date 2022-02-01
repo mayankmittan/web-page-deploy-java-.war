@@ -38,26 +38,6 @@ sh 'echo compile completed'
 
 }
 
-stage('SonarQube analysis') { 
-  steps { 
-    script{ def scannerHome = tool 'my_sonar'; 
-           withSonarQubeEnv('my_sonar') {
-             sh "${tool("my_sonar")}/opt/sonarscanner \ 
-             -Dsonar.projectKey=my_sonar \ 
-             -Dsonar.projectName=my_sonar"
-           }
-          }
-  }
-
-
-
-stage('Quality Gate') {
-steps {
-timeout(time: 1, unit: 'MINUTES') {
-waitForQualityGate abortPipeline:true
-}
-}
-}
 
 
 stage('package') {
