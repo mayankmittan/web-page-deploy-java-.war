@@ -57,7 +57,25 @@ sh 'mvn test'
 }
 
 }
+stage('Deployment') {
 
+steps {
+
+sh 'cp /root/.jenkins/workspace/Final/target/*.war /opt/tomcat/webapps'
+
+}
+
+}
+
+stage('installing webapp') {
+
+steps {
+
+sh '/opt/tomcat/bin/startup.sh'
+
+}
+
+}
 
 
 }
