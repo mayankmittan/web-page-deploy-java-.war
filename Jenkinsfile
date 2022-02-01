@@ -61,7 +61,7 @@ stage('Deployment') {
 
 steps {
 
-sh 'cp /root/.jenkins/workspace/Final/target/*.war /opt/tomcat/webapps'
+sh 'cp /root/.jenkins/workspace/done/target/*.war /opt/tomcat/webapps'
 
 }
 
