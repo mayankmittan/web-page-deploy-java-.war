@@ -4,7 +4,7 @@ agent any
 
 tools {
 
-maven 'My_Maven'
+maven 'my_maven'
 
 }
 
