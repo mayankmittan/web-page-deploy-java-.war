@@ -37,6 +37,33 @@ sh 'echo compile completed'
 }
 
 }
+  stage('Sonar Analysis') {
+environment {
+SCANNER_HOME = tool 'my_sonar'
+PROJECT_NAME = "test"
+  mvn sonar:sonar \
+  -Dsonar.projectKey=my_sonar \
+  -Dsonar.host.url=http://18.222.117.40:9000 \
+  -Dsonar.login=ebf5abda01c49688c5ae0c981f7085a09b850360
+}
+  }
+steps {
+withSonarQubeEnv('my_maven') {
+sh '''$SCANNER_HOME/bin/sonar-scanner \
+-Dsonar.java.binaries=build/classes/java/ \
+-Dsonar.projectKey=$PROJECT_NAME \
+-Dsonar.sources=.'''
+}
+}
+}
+stage('Quality Gate') {
+steps {
+timeout(time: 1, unit: 'MINUTES') {
+waitForQualityGate abortPipeline:true
+}
+}
+}
+
 
 stage('package') {
 
