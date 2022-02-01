@@ -42,7 +42,7 @@ stage('SonarQube analysis') {
   steps { 
     script{ def scannerHome = tool 'my_sonar'; 
            withSonarQubeEnv('my_sonar') {
-             sh "${tool("my_sonar")}/bin/sonar-scanner \ 
+             sh "${tool("my_sonar")}/opt/sonarscanner \ 
              -Dsonar.projectKey=my_sonar \ 
              -Dsonar.projectName=my_sonar"
            }
