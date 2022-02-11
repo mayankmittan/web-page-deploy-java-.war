@@ -1,6 +1,6 @@
 FROM alpine
 
-RUN apk add wget && apk add openjdk8 
+RUN apk add wget && apk add openjdk8 && apk add curl && apk add vim 
 
 RUN mkdir /usr/local/tomcat
 
